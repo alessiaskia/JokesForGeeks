@@ -34,30 +34,26 @@
 					<li class="nav-item">
 						<a class="nav-link" href="#">About</a>
 					</li>
-					<li>
-						<a class="nav-link my-2 my-lg-0" href=" {{ path('cart') }} ">
-							<i class="fas fa-shopping-cart"></i>
-						</a>
-					</li>
-				</ul>
+					<a class="nav-link my-2 my-lg-0" href=" {{ path('cart') }} ">
+						<i class="fas fa-shopping-cart"></i>
+					</a>
+				</li>
+			</ul>
 
-			</div>
-		</nav>
+		</div>
+	</body>
+</html></nav><div class="container"> {% block body %}{% endblock %}
+</div>
 
-		<div class="container"> {% block body %}{% endblock %}
-			</div>
-
-			<footer class="container-fluid bg-light">
-				<ul class="d-flex justify-content-around">
-					<li>copyright</li>
-					<li>github</li>
-					<li>remerciements</li>
-				</ul>
-			</footer>
+<footer class="container-fluid bg-light">
+	<ul class="d-flex justify-content-around">
+		<li>copyright</li>
+		<li>github</li>
+		<li>remerciements</li>
+	</ul>
+</footer>
 
 
-			{% block javascripts %}
-				{#{{ encore_entry_script_tags('app') }}#}
-			{% endblock %}
-		</body>
-	</html>
+{% block javascripts %}
+	{#{{ encore_entry_script_tags('app') }}#}
+{% endblock %}</body></html>
