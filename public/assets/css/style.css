@@ -1,3 +1,24 @@
+/* general settings */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow-x: hidden;
+  font-size: 16px;
+}
+/* ------ end general settings ------ */
+
+/* base template */
 footer {
   position: absolute;
   bottom: 0;
@@ -7,3 +28,20 @@ footer ul {
   list-style-type: none;
   padding-top: 5px;
 }
+
+.fa-shopping-cart {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.navbar-brand {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+}
+
+/* ------ end general settings ------ */
