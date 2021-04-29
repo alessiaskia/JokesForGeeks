@@ -16,9 +16,14 @@ body {
   overflow-x: hidden;
   font-size: 16px;
 }
+
+ul {
+  list-style-type: unset;
+}
+
 /* ------ end general settings ------ */
 
-/* base template */
+/* base.html.twig template */
 footer {
   position: absolute;
   bottom: 0;
@@ -44,4 +49,4 @@ footer ul {
   letter-spacing: 2px;
 }
 
-/* ------ end general settings ------ */
+/* ------ end base.html.twig settings ------ */
