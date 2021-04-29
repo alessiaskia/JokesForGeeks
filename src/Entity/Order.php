@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +49,21 @@ class Order
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $country;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OrderDetail::class, mappedBy="orderMade")
+     */
+    private $orderDetail;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orderMade")
+     */
+    private $user;
+
+    public function __construct()
+    {
+        $this->orderDetail = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,6 +138,48 @@ class Order
     public function setCountry(?string $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrderDetail[]
+     */
+    public function getOrderDetail(): Collection
+    {
+        return $this->orderDetail;
+    }
+
+    public function addOrderDetail(OrderDetail $orderDetail): self
+    {
+        if (!$this->orderDetail->contains($orderDetail)) {
+            $this->orderDetail[] = $orderDetail;
+            $orderDetail->setOrderMade($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderDetail(OrderDetail $orderDetail): self
+    {
+        if ($this->orderDetail->removeElement($orderDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($orderDetail->getOrderMade() === $this) {
+                $orderDetail->setOrderMade(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

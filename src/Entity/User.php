@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +43,16 @@ class User
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
+     */
+    private $orderMade;
+
+    public function __construct()
+    {
+        $this->orderMade = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +115,36 @@ class User
     public function setPassword(?string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrderMade(): Collection
+    {
+        return $this->orderMade;
+    }
+
+    public function addOrderMade(Order $orderMade): self
+    {
+        if (!$this->orderMade->contains($orderMade)) {
+            $this->orderMade[] = $orderMade;
+            $orderMade->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderMade(Order $orderMade): self
+    {
+        if ($this->orderMade->removeElement($orderMade)) {
+            // set the owning side to null (unless already changed)
+            if ($orderMade->getUser() === $this) {
+                $orderMade->setUser(null);
+            }
+        }
 
         return $this;
     }
