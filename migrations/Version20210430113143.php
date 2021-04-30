@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210429210606 extends AbstractMigration
+final class Version20210430113143 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -47,5 +47,9 @@ final class Version20210429210606 extends AbstractMigration
         $this->addSql('DROP TABLE `order`');
         $this->addSql('DROP TABLE order_detail');
         $this->addSql('DROP TABLE user');
+    }
+    public function isTransactional(): bool
+    {
+        return false;
     }
 }
