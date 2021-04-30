@@ -18,7 +18,7 @@ body {
 }
 
 ul {
-  list-style-type: unset;
+  list-style-type: none !important;
 }
 
 img {
@@ -26,7 +26,7 @@ img {
 }
 
 .gadget-icons {
-  width: 60px;
+  width: 80px;
 }
 
 /* ------ end general settings ------ */
