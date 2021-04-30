@@ -42,9 +42,10 @@
   <section class="choose-gadget d-flex justify-content-between p-5 ml-1">
     <div class="left-box border border-light p-3">
       <h1>Choose your Gadget</h1>
-      <ul class="p-3 font-weight-bold">
-        <li>Print the joke on your favorite product</li>
-      </ul>
+      <h5 class="pt-3 font-weight-bold">
+        Print the joke on your favorite product
+      </h5>
+    
       <div class="button-box d-flex justify-content-around p-3">
         <button type="button" class="font-weight-bold btn btn-primary">
           Go to customization
@@ -53,24 +54,23 @@
     </div>
 
     <div class="right-box border border-light p-3">
-        <div class="gadget-icons d-flex justify-content-around p-3">
-      {% for gadget in gadgets %}
-        
-          <img src="{{ asset('/assets/img/' ~ gadget.samplePicture ~ '') }}" alt={{ gadget.type }} class="gadget-icons" />
+      <div class="gadget-icons d-flex justify-content-between p-3">
+        {% for gadget in gadgets %}
+          
+            <img src="{{ asset('/assets/img/' ~ gadget.samplePicture ~ '') }}" alt={{ gadget.type }} class="gadget-icons" />
 
-      {% endfor %}
-        </div>
-        <div class="gadget-names d-flex justify-content-around p-3">
-      {% for gadget in gadgets %}
-          <button
-            type="button"
-            class="font-weight-bold btn btn-secondary btn-sm m-3"
-          >
-            {{ gadget.type }}
-          </button>
         {% endfor %}
+      </div>
+      <div class="gadget-names d-flex justify-content-around p-3">
+        {% for gadget in gadgets %}
+            <button
+              type="button"
+              class="font-weight-bold btn btn-secondary btn-sm m-3"
+            >
+              {{ gadget.type }}
+            </button>
+          {% endfor %}
         </div>
-     
     </div>
   </section>
 

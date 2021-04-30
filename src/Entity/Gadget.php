@@ -12,6 +12,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Gadget
 {
+    public function hydrate(array $init)
+    {
+        foreach ($init as $key => $value) {
+            $method = "set" . ucfirst($key);
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -39,9 +49,11 @@ class Gadget
      */
     private $orderDetail;
 
-    public function __construct()
+    public function __construct($arrayInit = [])
     {
         $this->orderDetail = new ArrayCollection();
+        // appel au hydrate
+        $this->hydrate($arrayInit);
     }
 
     public function getId(): ?int
