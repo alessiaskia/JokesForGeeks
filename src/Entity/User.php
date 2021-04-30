@@ -12,6 +12,17 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User
 {
+    // crée par nous mêmes, ainsi que le constructeur plus bas
+    public function hydrate(array $init)
+    {
+        foreach ($init as $key => $value) {
+            $method = "set" . ucfirst($key);
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -49,9 +60,11 @@ class User
      */
     private $orderMade;
 
-    public function __construct()
+    public function __construct($arrayInit = [])
     {
         $this->orderMade = new ArrayCollection();
+        // appel au hydrate
+        $this->hydrate($arrayInit);
     }
 
     public function getId(): ?int

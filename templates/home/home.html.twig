@@ -2,83 +2,76 @@
 
 {% block main %} 
 
-{# {% form_theme form
-'bootstrap_4_layout.html.twig' %} #}
+  {# {% form_theme form
+  'bootstrap_4_layout.html.twig' %} #}
 
- {# first half of the page --> select the joke #}
-<section class="random-joke d-flex justify-content-between p-5 ml-1">
-  <div class="left-box border border-light p-3">
-    <h1 class="display-3">Jokes for Geeks</h1>
+  {# first half of the page --> select the joke #}
+  <section class="random-joke d-flex justify-content-between p-5 ml-1">
+    <div class="left-box border border-light p-3">
+      <h1 class="display-3">Jokes for Geeks</h1>
 
-    <ol class="p-3 font-weight-bold">
-      <li>Get a random joke about programming</li>
-      <li>Choose your favorite</li>
-    </ol>
+      <ol class="p-3 font-weight-bold">
+        <li>Get a random joke about programming</li>
+        <li>Choose your favorite</li>
+      </ol>
 
-    <div class="button-box d-flex justify-content-around">
-      <button type="button" class="font-weight-bold btn btn-primary">
-        Next Joke
-      </button>
-      <button type="button" class="font-weight-bold btn btn-warning">
-        Select this one
-      </button>
+      <div class="button-box d-flex justify-content-around">
+        <button type="button" class="font-weight-bold btn btn-primary">
+          Next Joke
+        </button>
+        <button type="button" class="font-weight-bold btn btn-warning">
+          Select this one
+        </button>
+      </div>
     </div>
-  </div>
 
-  <div class="right-box border border-warning">
-    <div class="joke-container p-5">
-      <h5 class="p-2">- Here will appear the punchline</h5>
-      <h5 class="p-2">
-        - Here will appear the setup (second part of the joke)
-      </h5>
+    <div class="right-box border border-warning">
+      <div class="joke-container p-5">
+        <h5 class="p-2">- Here will appear the punchline</h5>
+        <h5 class="p-2">
+          - Here will appear the setup (second part of the joke)
+        </h5>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
 
-<hr />
+  <hr />
 
-{# second half of the page --> select the gadget #}
-<section class="choose-gadget d-flex justify-content-between p-5 ml-1">
-  <div class="left-box border border-light p-3">
-    <h1>Choose your Gadget</h1>
-    <ul class="p-3 font-weight-bold">
-      <li>Print the joke on your favorite product</li>
-    </ul>
-    <div class="button-box d-flex justify-content-around p-3">
-      <button type="button" class="font-weight-bold btn btn-primary">
-        Go to customization
-      </button>
+  {# second half of the page --> select the gadget #}
+  <section class="choose-gadget d-flex justify-content-between p-5 ml-1">
+    <div class="left-box border border-light p-3">
+      <h1>Choose your Gadget</h1>
+      <ul class="p-3 font-weight-bold">
+        <li>Print the joke on your favorite product</li>
+      </ul>
+      <div class="button-box d-flex justify-content-around p-3">
+        <button type="button" class="font-weight-bold btn btn-primary">
+          Go to customization
+        </button>
+      </div>
     </div>
-  </div>
 
-  <div class="right-box border border-light p-3">
-    <div class="gadget-icons d-flex justify-content-around p-3">
-      <img src="{{ asset('/assets/img/tshirt.jpg') }}" alt="t-shirt" />
-      <img src="{{ asset('/assets/img/mousepad.jpg') }}" alt="mousepad" />
-      <img src="{{ asset('/assets/img/poster.jpg') }}" alt="poster" />
+    <div class="right-box border border-light p-3">
+        <div class="gadget-icons d-flex justify-content-around p-3">
+      {% for gadget in gadgets %}
+        
+          <img src="{{ asset('/assets/img/' ~ gadget.samplePicture ~ '') }}" alt={{ gadget.type }} class="gadget-icons" />
+
+      {% endfor %}
+        </div>
+        <div class="gadget-names d-flex justify-content-around p-3">
+      {% for gadget in gadgets %}
+          <button
+            type="button"
+            class="font-weight-bold btn btn-secondary btn-sm m-3"
+          >
+            {{ gadget.type }}
+          </button>
+        {% endfor %}
+        </div>
+     
     </div>
-    <div class="gadget-names d-flex justify-content-around p-3">
-      <button
-        type="button"
-        class="font-weight-bold btn btn-secondary btn-sm m-3"
-      >
-        t-shirt
-      </button>
-      <button
-        type="button"
-        class="font-weight-bold btn btn-secondary btn-sm m-3"
-      >
-        mousepad
-      </button>
-      <button
-        type="button"
-        class="font-weight-bold btn btn-secondary btn-sm m-3"
-      >
-        poster
-      </button>
-    </div>
-  </div>
-</section>
+  </section>
 
 {% endblock %}

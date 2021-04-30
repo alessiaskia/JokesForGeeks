@@ -21,6 +21,14 @@ ul {
   list-style-type: unset;
 }
 
+img {
+  display: block;
+}
+
+.gadget-icons {
+  width: 60px;
+}
+
 /* ------ end general settings ------ */
 
 /* base.html.twig template */
