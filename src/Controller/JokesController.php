@@ -18,10 +18,11 @@ class JokesController extends AbstractController
         //get all jokes from the jokes.json file
         $fs = new Filesystem();
 
-        // var_dump($jokesJson);
+        // dd($jokesJson);
 
+        //transform json -> array associatif
         $contenuJson = file_get_contents('official_joke_api.json');
-        $arrayJokes = json_decode($contenuJson, true);
+        $arrayJokes = json_decode($contenuJson, true); // true -> returns array associatif
         //dd($arrayJokes);
 
         //get manager
