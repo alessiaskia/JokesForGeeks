@@ -61,6 +61,6 @@ footer ul {
 
 /*------ Home Page ------ */
 
-.joke-container {
-  min-width: 200px;
+.right-box {
+  max-width: 180px !important;
 }

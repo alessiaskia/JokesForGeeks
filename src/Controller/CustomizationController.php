@@ -11,8 +11,6 @@ class CustomizationController extends AbstractController
     #[Route('/customization', name: 'customization')]
     public function customizationPage(): Response
     {
-        return $this->render('customization/customization.html.twig', [
-            'controller_name' => 'CustomizationController',
-        ]);
+        return $this->render('customization/customization.html.twig');
     }
 }
