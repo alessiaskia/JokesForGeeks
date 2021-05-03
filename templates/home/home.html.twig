@@ -18,7 +18,7 @@
       <!-- formulaire à envoyer  -->
       <form id="joke-selection-form" method="POST">
         <div class="button-box d-flex align-items-center justify-content-around">
-          <button id="btn-next-joke" type="button" class="font-weight-bold btn btn-primary">
+          <button id="nextJokeButton" type="button" class="font-weight-bold btn btn-primary">
             Next Joke
           </button>
           {# <button type="button" class="font-weight-bold btn btn-warning">
@@ -30,7 +30,7 @@
 
     <div class="right-box border border-warning">
       <div id="div-joke" class="joke-container p-5">
-        {{ dump (randomJoke.id) }}
+        {# {{ dump (randomJoke.id) }} #}
         <h3> - {{ randomJoke.setup }}</h3>
         <h3> - {{ randomJoke.punchline }}</h3>
         <p> id: {{ randomJoke.id }}</p>
@@ -89,15 +89,16 @@
 {% block javascripts %}
 {# document eventListener con axios. #}
 <!-- AJAX - AXIOS  -->
-{# <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-    btn-next-joke.addEventListener("click", function (event) {
+    nextJokeButton.addEventListener("click", function (event) {
+      console.log(nextJokeButton);
         event.preventDefault();
-
+        
         console.log (document.getElementById("joke-selection-form"));
 
         axios({
-            url: '{{path ("exemple1_traitement")}}',
+            url: '{{path ("next_joke")}}',
             method: 'POST',
             headers: { 'Content-Type': 'multipart/form-data' },
             data: new FormData(document.getElementById("joke-selection-form"))
@@ -113,5 +114,5 @@
             console.log(error);
         });
     });    
-</script> #}
+</script>
 {% endblock %}

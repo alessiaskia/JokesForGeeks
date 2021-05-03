@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Gadget;
 use App\Entity\Joke;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints\NotNull;
 
 class HomeController extends AbstractController
@@ -46,5 +47,16 @@ class HomeController extends AbstractController
     #[Route('/home/next/joke', name: 'next_joke')]
     public function getNextJoke(Request $ajaxRequest)
     {
+        $idJoke = $ajaxRequest->get('id');
+        $setup = $ajaxRequest->get('setup');
+        $punchline = $ajaxRequest->get('punchline');
+
+        $arrayResponse = [
+            'idJoke' => $idJoke,
+            'setup' => $setup,
+            'punchline' => $punchline,
+        ];
+
+        return new JsonResponse($arrayResponse);
     }
 }
