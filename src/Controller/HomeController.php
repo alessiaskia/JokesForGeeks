@@ -2,32 +2,29 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-
-use App\Entity\Gadget;
 use App\Entity\Joke;
+use App\Entity\Gadget;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'home')]
     public function homePage(): Response
     {
-
         //aller chercher dans le repo - jokes
         $em = $this->getDoctrine()->getManager();
         $rep = $em->getRepository(Joke::class);
 
         //renvoyer un array de jokes
         $jokes = $rep->findAll();
-        $randomId = array_rand($jokes);
-        //dd($randomId);
-        $randomJoke = $rep->findOneBy(['id' => $randomId]);
-        //dd($randomJoke);
+        $randomJoke = $jokes[array_rand($jokes)];
 
         //aller chercher dans le repo - gadgets
         $em = $this->getDoctrine()->getManager();
@@ -45,18 +42,33 @@ class HomeController extends AbstractController
     }
 
     #[Route('/home/next/joke', name: 'next_joke')]
-    public function getNextJoke(Request $ajaxRequest)
+    public function getNextJoke()
     {
-        $idJoke = $ajaxRequest->get('id');
-        $setup = $ajaxRequest->get('setup');
-        $punchline = $ajaxRequest->get('punchline');
+        //aller chercher dans le repo - jokes
+        $em = $this->getDoctrine()->getManager();
+        $rep = $em->getRepository(Joke::class);
 
-        $arrayResponse = [
+        //renvoyer un array de jokes
+        $jokes = $rep->findAll();
+        $randomJoke = $jokes[array_rand($jokes)];
+
+        return $this->json($randomJoke);
+    }
+
+    #[Route('/home/custom/gadget', name: 'custom_gadget')]
+    public function customGadget(Request $req)
+    {
+        //this route is called in the second form in template "home"
+        $chosenGadget = $req->request->get('chosenGadget');
+        //dump($chosenGadget);
+        $idJoke = $req->request->get('jokeId');
+        //dd($idJoke);
+
+        $vars = [
+            'gadget' => $chosenGadget,
             'idJoke' => $idJoke,
-            'setup' => $setup,
-            'punchline' => $punchline,
         ];
 
-        return new JsonResponse($arrayResponse);
+        return $this->render('customization/customization.html.twig', $vars);
     }
 }

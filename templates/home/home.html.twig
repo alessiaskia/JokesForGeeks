@@ -31,9 +31,8 @@
     <div class="right-box border border-warning">
       <div id="div-joke" class="joke-container p-5">
         {# {{ dump (randomJoke.id) }} #}
-        <h3> - {{ randomJoke.setup }}</h3>
-        <h3> - {{ randomJoke.punchline }}</h3>
-        <p> id: {{ randomJoke.id }}</p>
+        <h3 id="jokeSetup"> - {{ randomJoke.setup }}</h3>
+        <h3 id="jokePunchline"> - {{ randomJoke.punchline }}</h3>
         {# <h5 class="p-2">- Here will appear the punchline</h5>
         <h5 class="p-2">
           - Here will appear the setup (second part of the joke)
@@ -61,27 +60,25 @@
     </div>
 
     <div class="right-box border border-light d-flex p-5">
-      {% for gadget in gadgets %}
-      <div class="gadget-icons p-3 mr-5">
-        
-        <img src="{{ asset('/assets/img/' ~ gadget.samplePicture ~ '') }}" alt={{ gadget.type }} class="gadget-icons" />
-        <button
-          type="button"
-          href="{{ path('customization', {type: gadget.type}) }}"
-          class="font-weight-bold btn btn-secondary m-2"
-        >
-          {{ gadget.type }} 
-        
-        </button>
-      </div>
-      {% endfor %}
-    {# </div>
-      <div class="gadget-names d-flex justify-content-around p-3">
+      <form action="{{ path('custom_gadget') }}" method="POST">
         {% for gadget in gadgets %}
-           
-          {% endfor %}
+        <div class="gadget-icons p-3 mr-5">
+          
+          <img src="{{ asset('/assets/img/' ~ gadget.samplePicture ~ '') }}" alt={{ gadget.type }} class="gadget-icons" />
+          <button
+            type="submit"
+            value="{{ gadget.type }}"
+            name="chosenGadget"
+            class="font-weight-bold btn btn-secondary m-2"
+          >
+            {{ gadget.type }} 
+          
+          </button>
         </div>
-    </div> #}
+        {% endfor %}
+        <input type="hidden" id="jokeId" name="jokeId" value="{{ randomJoke.id }}" />
+      </form>
+    </div>
   </section>
 
 {% endblock %}
@@ -91,7 +88,7 @@
 <!-- AJAX - AXIOS  -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-    nextJokeButton.addEventListener("click", function (event) {
+    document.getElementById('nextJokeButton').addEventListener("click", function (event) {
       console.log(nextJokeButton);
         event.preventDefault();
         
@@ -107,8 +104,11 @@
             // response.data est un objet qui correspond à l'array associatif envoyé dans le controller
             // JsonResponse a transformé l'array en JSON. Axios transforme le JSON en objet JS
             // (et on utilise ici la clé "leMessage")
-            document.getElementById("div-joke").innerHTML = response.data;
-            console.log (response.data);
+            console.log(response.data);
+            document.getElementById("jokeSetup").innerHTML = response.data.setup;
+            document.getElementById("jokePunchline").innerHTML = response.data.punchline;
+            document.getElementById("jokeId").value = response.data.id;
+            console.log (typeof(response.data));
         })
         .catch(function (error) {
             console.log(error);
