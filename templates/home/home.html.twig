@@ -6,19 +6,19 @@
   'bootstrap_4_layout.html.twig' %} #}
 
   {# first half of the page --> select the joke #}
-  <section class="random-joke d-flex justify-content-around p-5 ml-1">
+  <section class="random-joke d-flex justify-content-between p-5 m-5">
     <div class="left-box border border-light p-3">
-      <h1 class="display-3">Jokes for Geeks</h1>
+      <h1 class="display-4">Get a random programming joke</h1>
 
       <ol class="p-3 font-weight-bold">
         <li>Get a random joke about programming</li>
-        <li>Choose your favorite</li>
+        <li>Click on "Next Joke" until you find your favorite</li>
       </ol>
 
       <!-- formulaire à envoyer  -->
       <form id="joke-selection-form" method="POST">
-        <div class="button-box d-flex align-items-center justify-content-around">
-          <button id="nextJokeButton" type="button" class="font-weight-bold btn btn-primary">
+        <div class="button-box d-flex align-items-center justify-content-between">
+          <button id="nextJokeButton" type="button" class="font-weight-bold btn btn-primary btn-lg">
             Next Joke
           </button>
           {# <button type="button" class="font-weight-bold btn btn-warning">
@@ -31,8 +31,9 @@
     <div class="right-box border border-warning">
       <div id="div-joke" class="joke-container p-5">
         {# {{ dump (randomJoke.id) }} #}
-        <h3 id="jokeSetup"> - {{ randomJoke.setup }}</h3>
-        <h3 id="jokePunchline"> - {{ randomJoke.punchline }}</h3>
+        <h3 id="jokeSetup"> {{ randomJoke.setup }}</h3>
+        <br />
+        <h3 id="jokePunchline"> {{ randomJoke.punchline }}</h3>
         {# <h5 class="p-2">- Here will appear the punchline</h5>
         <h5 class="p-2">
           - Here will appear the setup (second part of the joke)
@@ -45,9 +46,9 @@
   <hr />
 
   {# second half of the page --> select the gadget #}
-  <section class="choose-gadget d-flex justify-content-around p-5 m-5">
+  <section class="choose-gadget d-flex justify-content-between p-5 m-5">
     <div class="left-box border border-light p-3">
-      <h1>Choose your Gadget</h1>
+      <h1 class="display-4">Choose your Gadget</h1>
       <h5 class="pt-3 font-weight-bold">
         Print the joke on your favorite product
       </h5>
@@ -59,17 +60,17 @@
       </div> #}
     </div>
 
-    <div class="right-box border border-light d-flex p-5">
-      <form action="{{ path('custom_gadget') }}" method="POST">
+    <div class="right-box border border-light p-5">
+      <form action="{{ path('custom_gadget') }}" method="POST" class="d-flex">
         {% for gadget in gadgets %}
-        <div class="gadget-icons p-3 mr-5">
+        <div class="gadget-icons p-3 mr-5 justify-content-center align-items-center">
           
           <img src="{{ asset('/assets/img/' ~ gadget.samplePicture ~ '') }}" alt={{ gadget.type }} class="gadget-icons" />
           <button
             type="submit"
             value="{{ gadget.type }}"
             name="chosenGadget"
-            class="font-weight-bold btn btn-secondary m-2"
+            class="font-weight-bold btn btn-primary ml-5 mt-2 p-2 text-center"
           >
             {{ gadget.type }} 
           
