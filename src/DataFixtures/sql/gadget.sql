@@ -7,9 +7,11 @@
 -- Version du serveur :  10.4.17-MariaDB
 -- Version de PHP : 8.0.1
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE
+= "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone
+= "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -25,10 +27,16 @@ SET time_zone = "+00:00";
 -- Déchargement des données de la table `gadget`
 --
 
+--
+-- Dumping data for table `gadget`
+--
+
 INSERT INTO `gadget` (`id`, `sample_picture`, `description`, `type`) VALUES
-(1, 'lalala', 'lalala', 'lalala'),
-(2, 'lololo', 'lololo', 'lololo');
-COMMIT;
+(1, 'tshirt.jpg', '100 % fine jersey cotton, relaxed fit, unisex, Made in EU.', 'T-shirt'),
+(2, 'mousepad.jpg', 'Water repellent, high precision, non-slip rubber base, designed by gamers and very suitable for gaming/office work.', 'Mousepad'),
+(3, 'poster.jpg', 'Laminated, tear-resistant, very durable, high quality ink.', 'Poster');
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

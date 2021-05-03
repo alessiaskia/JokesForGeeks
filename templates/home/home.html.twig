@@ -16,17 +16,17 @@
       </ol>
 
       <div class="button-box d-flex justify-content-around">
-        <button type="button" class="font-weight-bold btn btn-primary">
+        <button id="btn-next-joke" type="button" class="font-weight-bold btn btn-primary">
           Next Joke
         </button>
-        <button type="button" class="font-weight-bold btn btn-warning">
+        {# <button type="button" class="font-weight-bold btn btn-warning">
           Select this one
-        </button>
+        </button> #}
       </div>
     </div>
 
     <div class="right-box border border-warning">
-      <div class="joke-container p-5">
+      <div id="div-joke" class="joke-container p-5">
         <h5 class="p-2">- Here will appear the punchline</h5>
         <h5 class="p-2">
           - Here will appear the setup (second part of the joke)
@@ -65,13 +65,16 @@
         {% for gadget in gadgets %}
             <button
               type="button"
+              href="{{ path('customization', {type: gadget.type}) }}"
               class="font-weight-bold btn btn-secondary btn-sm m-3"
             >
-              {{ gadget.type }}
+              {{ gadget.type }} 
+          
             </button>
           {% endfor %}
         </div>
     </div>
   </section>
 
+{# document event listener con axios. #}
 {% endblock %}
