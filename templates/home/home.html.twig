@@ -6,7 +6,7 @@
   'bootstrap_4_layout.html.twig' %} #}
 
   {# first half of the page --> select the joke #}
-  <section class="random-joke d-flex justify-content-between p-5 ml-1">
+  <section class="random-joke d-flex justify-content-around p-5 ml-1">
     <div class="left-box border border-light p-3">
       <h1 class="display-3">Jokes for Geeks</h1>
 
@@ -15,22 +15,29 @@
         <li>Choose your favorite</li>
       </ol>
 
-      <div class="button-box d-flex justify-content-around">
-        <button id="btn-next-joke" type="button" class="font-weight-bold btn btn-primary">
-          Next Joke
-        </button>
-        {# <button type="button" class="font-weight-bold btn btn-warning">
-          Select this one
-        </button> #}
-      </div>
+      <!-- formulaire à envoyer  -->
+      <form id="joke-selection-form" method="POST">
+        <div class="button-box d-flex align-items-center justify-content-around">
+          <button id="btn-next-joke" type="button" class="font-weight-bold btn btn-primary">
+            Next Joke
+          </button>
+          {# <button type="button" class="font-weight-bold btn btn-warning">
+            Select this one
+          </button> #}
+        </div>
+      </form>
     </div>
 
     <div class="right-box border border-warning">
       <div id="div-joke" class="joke-container p-5">
-        <h5 class="p-2">- Here will appear the punchline</h5>
+        {{ dump (randomJoke.id) }}
+        <h3> - {{ randomJoke.setup }}</h3>
+        <h3> - {{ randomJoke.punchline }}</h3>
+        <p> id: {{ randomJoke.id }}</p>
+        {# <h5 class="p-2">- Here will appear the punchline</h5>
         <h5 class="p-2">
           - Here will appear the setup (second part of the joke)
-        </h5>
+        </h5> #}
       </div>
     </div>
   </section>
@@ -39,42 +46,72 @@
   <hr />
 
   {# second half of the page --> select the gadget #}
-  <section class="choose-gadget d-flex justify-content-between p-5 ml-1">
+  <section class="choose-gadget d-flex justify-content-around p-5 m-5">
     <div class="left-box border border-light p-3">
       <h1>Choose your Gadget</h1>
       <h5 class="pt-3 font-weight-bold">
         Print the joke on your favorite product
       </h5>
     
-      <div class="button-box d-flex justify-content-around p-3">
+      {# <div class="button-box d-flex justify-content-around p-3">
         <button type="button" class="font-weight-bold btn btn-primary">
           Go to customization
         </button>
-      </div>
+      </div> #}
     </div>
 
-    <div class="right-box border border-light p-3">
-      <div class="gadget-icons d-flex justify-content-between p-3">
-        {% for gadget in gadgets %}
-          
-            <img src="{{ asset('/assets/img/' ~ gadget.samplePicture ~ '') }}" alt={{ gadget.type }} class="gadget-icons" />
-
-        {% endfor %}
+    <div class="right-box border border-light d-flex p-5">
+      {% for gadget in gadgets %}
+      <div class="gadget-icons p-3 mr-5">
+        
+        <img src="{{ asset('/assets/img/' ~ gadget.samplePicture ~ '') }}" alt={{ gadget.type }} class="gadget-icons" />
+        <button
+          type="button"
+          href="{{ path('customization', {type: gadget.type}) }}"
+          class="font-weight-bold btn btn-secondary m-2"
+        >
+          {{ gadget.type }} 
+        
+        </button>
       </div>
+      {% endfor %}
+    {# </div>
       <div class="gadget-names d-flex justify-content-around p-3">
         {% for gadget in gadgets %}
-            <button
-              type="button"
-              href="{{ path('customization', {type: gadget.type}) }}"
-              class="font-weight-bold btn btn-secondary btn-sm m-3"
-            >
-              {{ gadget.type }} 
-          
-            </button>
+           
           {% endfor %}
         </div>
-    </div>
+    </div> #}
   </section>
 
-{# document event listener con axios. #}
+{% endblock %}
+
+{% block javascripts %}
+{# document eventListener con axios. #}
+<!-- AJAX - AXIOS  -->
+{# <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    btn-next-joke.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        console.log (document.getElementById("joke-selection-form"));
+
+        axios({
+            url: '{{path ("exemple1_traitement")}}',
+            method: 'POST',
+            headers: { 'Content-Type': 'multipart/form-data' },
+            data: new FormData(document.getElementById("joke-selection-form"))
+        })
+        .then(function (response) {
+            // response.data est un objet qui correspond à l'array associatif envoyé dans le controller
+            // JsonResponse a transformé l'array en JSON. Axios transforme le JSON en objet JS
+            // (et on utilise ici la clé "leMessage")
+            document.getElementById("div-joke").innerHTML = response.data;
+            console.log (response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    });    
+</script> #}
 {% endblock %}
