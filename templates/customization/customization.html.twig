@@ -1,12 +1,181 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block main %} {# la ligne suivante est pour
+charger Bootstrap pour les formulaires #} {# {% form_theme form
+'bootstrap_4_layout.html.twig' %} #}
+<div class="d-flex justify-content-around">
+  <section class="left-block p-5 m-5 border border-light">
+    <h1 class="display-4">Customization</h1>
+    <p>Selected gadget: {{ gadget }}</p>
+    <p>Selected joke: {{ idJoke }}</p>
 
-{% block main %}
-	{# la ligne suivante est pour charger Bootstrap pour les formulaires #}
-	{# {% form_theme form 'bootstrap_4_layout.html.twig' %} #}
+    <button
+      type="button"
+      class="btn btn-warning btn-lg btn-block font-weight-bold mb-4"
+    >
+      Back to Jokes
+    </button>
+    <!-- picture with sample images  -->
+    <div class="sample-picture-container border border-warning p-5">
+      <img
+        src="{{ asset('/assets/img/tshirt-black-front.png') }}"
+        class="sample-picture p-3"
+      />
+      <img
+        src="{{ asset('/assets/img/tshirt-black-back.png') }}"
+        class="sample-picture p-3"
+      />
+    </div>
+  </section>
 
-	<h1>Customization</h1>
-I want a...
-{{ dump (gadget) }}
-{{ dump (idJoke) }}
+  <section class="right-block p-5 m-5 border border-light">
+    <!-- gadget selection -->
+    <div class="gadget-switch border border-light p-3 m-3">
+      <button
+        id="T-shirt"
+        class="font-weight-bold btn btn-secondary ml-5 mt-2 p-2 text-center active"
+      >
+        T-shirt
+      </button>
+      <button
+        id="Mousepad"
+        class="font-weight-bold btn btn-secondary ml-5 mt-2 p-2 text-center"
+      >
+        Mousepad
+      </button>
+      <button
+        id="Poster"
+        class="font-weight-bold btn btn-secondary ml-5 mt-2 p-2 text-center"
+      >
+        Poster
+      </button>
 
+      <p class="p-1 mt-5">
+        100 % fine jersey cotton, relaxed fit, unisex, Made in EU.
+      </p>
+    </div>
+
+    <!-- color selection -->
+    <div class="color-selection border border-light p-3 m-3">
+      <p>Color: {selected color}</p>
+      <div
+        class="color-squares d-flex justify-content-around border border-light p-3"
+      >
+        <input
+          id="black"
+          class="color-box black border border-black active"
+          title="black"
+          name="size"
+        />
+        <input
+          id="white"
+          class="color-box bg-white border border-black"
+          title="white"
+          name="size"
+        />
+        <input
+          id="red"
+          class="color-box bg-danger border border-black"
+          title="red"
+          name="size"
+        />
+        <input
+          id="blue"
+          class="color-box blue border border-black"
+          title="blue"
+          name="size"
+        />
+      </div>
+    </div>
+
+    <!-- size selection -->
+    <div class="size-selection border border-light p-3 m-3">
+      <p>Size: {selected size}</p>
+      <div
+        class="size-squares d-flex justify-content-around border border-light p-3 text-center"
+      >
+        <input id="xs" class="size-box border border-dark" type="radio" /><span
+          >XS</span
+        >
+        <input id="s" class="size-box border border-dark" type="radio" /><span
+          >S</span
+        >
+        <input id="m" class="size-box border border-dark" type="radio" /><span
+          >M</span
+        >
+        <input id="l" class="size-box border border-dark" type="radio" /><span
+          >L</span
+        >
+        <input id="xl" class="size-box border border-dark" type="radio" /><span
+          >XL</span
+        >
+        <input id="2xl" class="size-box border border-dark" type="radio" /><span
+          >2XL</span
+        >
+      </div>
+    </div>
+
+    <!-- add-to-cart selection -->
+    <div class="cart-buttons border border-light p-3 m-3">
+      <h4 class="text-capitalize text-primary mb-5">
+        Price : { price of the item } €
+      </h4>
+      <button
+        type="button"
+        class="btn btn-primary btn-lg btn-block font-weight-bold"
+      >
+        Add to Cart
+      </button>
+      <button
+        type="button"
+        class="btn btn-warning btn-lg btn-block font-weight-bold"
+      >
+        Go to Cart
+      </button>
+    </div>
+
+    <!-- size chart (only for t-shirts)-->
+    <div class="add-to-cart border border-light p-3 m-3">
+      <table class="table table-hover text-justify">
+        <thead>
+          <tr>
+            <th scope="col">Size</th>
+            <th scope="col">Chest</th>
+            <th scope="col">Waist</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-default">
+            <th scope="row">XS</th>
+            <td>30-32in/77-82cm</td>
+            <td>28-30in/72-77cm</td>
+          </tr>
+          <tr class="table-default">
+            <th scope="row">S</th>
+            <td>34-36in/87-92cm</td>
+            <td>30-32in/77-82cm</td>
+          </tr>
+          <tr class="table-default">
+            <th scope="row">M</th>
+            <td>38-40in/97-102cm</td>
+            <td>32-33in/82-84cm</td>
+          </tr>
+          <tr class="table-default">
+            <th scope="row">L</th>
+            <td>32-33in/82-84cm</td>
+            <td>33-34in/84-87cm</td>
+          </tr>
+          <tr class="table-default">
+            <th scope="row">XL</th>
+            <td>46-48in/117-122cm</td>
+            <td>36-38in/92-97cm</td>
+          </tr>
+          <tr class="table-default">
+            <th scope="row">2XL</th>
+            <td>48-50in/122-127cm</td>
+            <td>40-42in/102-107cm</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
 {% endblock %}

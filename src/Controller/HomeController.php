@@ -55,10 +55,11 @@ class HomeController extends AbstractController
         return $this->json($randomJoke);
     }
 
+    //this route is called in the second form in template "home"
+    //purpose: get chosen gadget + id of choses joke and transfer all to Customization view
     #[Route('/home/custom/gadget', name: 'custom_gadget')]
     public function customGadget(Request $req)
     {
-        //this route is called in the second form in template "home"
         $chosenGadget = $req->request->get('chosenGadget');
         //dump($chosenGadget);
         $idJoke = $req->request->get('jokeId');

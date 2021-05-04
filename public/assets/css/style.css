@@ -59,8 +59,23 @@ footer ul {
 
 /* ------ end base.html.twig settings ------ */
 
-/*------ Home Page ------ */
+.sample-picture {
+  width: 380px;
+}
 
-.right-box {
-  max-width: 180px !important;
+.color-squares {
+  width: 380px;
+}
+
+.color-box {
+  width: 30px;
+  height: 30px;
+}
+
+.black {
+  background-color: black;
+}
+
+.blue {
+  background-color: navy;
 }

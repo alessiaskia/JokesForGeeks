@@ -15,7 +15,7 @@
         <li>Click on "Next Joke" until you find your favorite</li>
       </ol>
 
-      <!-- formulaire à envoyer  -->
+      <!-- form for joke selection  -->
       <form id="joke-selection-form" method="POST">
         <div class="button-box d-flex align-items-center justify-content-between">
           <button id="nextJokeButton" type="button" class="font-weight-bold btn btn-primary btn-lg">
@@ -60,6 +60,7 @@
       </div> #}
     </div>
 
+     <!-- form for gadget selection  -->
     <div class="right-box border border-light p-5">
       <form action="{{ path('custom_gadget') }}" method="POST" class="d-flex">
         {% for gadget in gadgets %}
@@ -71,7 +72,7 @@
             value="{{ gadget.type }}"
             name="chosenGadget"
             class="font-weight-bold btn btn-primary ml-5 mt-2 p-2 text-center"
-          >
+          />
             {{ gadget.type }} 
           
           </button>
