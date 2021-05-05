@@ -65,11 +65,18 @@ class HomeController extends AbstractController
         $idJoke = $req->request->get('jokeId');
         //dd($idJoke);
 
-        $vars = [
-            'gadget' => $chosenGadget,
-            'idJoke' => $idJoke,
-        ];
+        // $vars = [
+        //     'gadget' => $chosenGadget,
+        //     'idJoke' => $idJoke,
+        // ];
 
-        return $this->render('customization/customization.html.twig', $vars);
+        //transfer variable to next controller with FORWARD
+        $response = $this->forward('App\Controller\CustomizationController::customizationPage', [
+            'chosenGadget' => $chosenGadget,
+            'idJoke' => $idJoke,
+        ]);
+
+        return $response;
+        // return $this->render('customization/customization.html.twig', $vars);
     }
 }

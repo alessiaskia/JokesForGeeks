@@ -7,6 +7,12 @@ charger Bootstrap pour les formulaires #} {# {% form_theme form
     <div class="info mt-4 mb-4">
       <p>Selected gadget: {{ gadget }}</p>
       <p>Selected joke: {{ idJoke }}</p>
+      <p class="text-monospace">{{ chosenJoke.setup }}</p>
+      <p class="text-monospace">{{ chosenJoke.punchline }}</p>
+      <p class="font-italic">
+        The image below is just representative. Imagine the final product with
+        your chosen joke on it ;)
+      </p>
     </div>
     <button
       type="button"
@@ -59,45 +65,38 @@ charger Bootstrap pour les formulaires #} {# {% form_theme form
       <p>Color: {selected color}</p>
       <div class="color-squares d-flex justify-content-around p-3">
         <label class="d-flex justify-content-center align-items-center">
-          <span class="color-box black border border-warning active m-2"></span>
+          <span
+            title="Black"
+            class="color-box black border border-warning active m-2"
+          ></span>
           <input
             type="radio"
             class="color-input"
             id="black"
-            title="black"
             name="size"
             checked
           />
         </label>
         <label class="d-flex justify-content-center align-items-center">
-          <span class="color-box bg-white border border-dark m-2"></span>
-          <input
-            type="radio"
-            class="color-input"
-            id="white"
-            title="white"
-            name="size"
-          />
+          <span
+            title="White"
+            class="color-box bg-white border border-dark m-2"
+          ></span>
+          <input type="radio" class="color-input" id="white" name="size" />
         </label>
         <label class="d-flex justify-content-center align-items-center">
-          <span class="color-box bg-danger border border-dark m-2"></span>
-          <input
-            type="radio"
-            class="color-input"
-            id="red"
-            title="red"
-            name="size"
-          />
+          <span
+            title="Red"
+            class="color-box bg-danger border border-dark m-2"
+          ></span>
+          <input type="radio" class="color-input" id="red" name="size" />
         </label>
         <label class="d-flex justify-content-center align-items-center">
-          <span class="color-box blue border border-dark m-2"></span>
-          <input
-            type="radio"
-            class="color-input"
-            id="blue"
-            title="blue"
-            name="size"
-          />
+          <span
+            title="Blue"
+            class="color-box blue border border-dark m-2"
+          ></span>
+          <input type="radio" class="color-input" id="blue" name="size" />
         </label>
       </div>
     </div>

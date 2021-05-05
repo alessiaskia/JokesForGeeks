@@ -2,21 +2,35 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Joke;
+use App\Entity\Gadget;
 
 class CustomizationController extends AbstractController
 {
-    #[Route('/customization', name: 'customization')]
-    public function customizationPage(): Response
+    #[Route('/customization/{chosenGadget}/{idJoke}', name: 'customization')]
+    public function customizationPage(Request $req): Response
     {
-        //show joke selected in previous page
-        // $em = $this->getDoctrine()->getManager();
-        // $rep = $em->getRepository(Joke::class);
-        // $selectedJoke = $rep->findOneBy(['id' => $idJoke]);
+        //obtain objects again from DB
+        $chosenGadget = $req->request->get('chosenGadget');
+        $idJoke = $req->request->get('jokeId');
+        //dd($idJoke);
 
+        //obtain remaining propreties of the selected jokes
+        $em = $this->getDoctrine()->getManager();
+        $rep = $em->getRepository(Joke::class);
+        $chosenJoke = $rep->findOneBy(['id' => $idJoke]);
+        //dd($chosenJoke);
 
-        return $this->render('customization/customization.html.twig');
+        $vars = [
+            'gadget' => $chosenGadget,
+            'idJoke' => $idJoke,
+            'chosenJoke' => $chosenJoke,
+        ];
+
+        return $this->render('customization/customization.html.twig', $vars);
     }
 }
