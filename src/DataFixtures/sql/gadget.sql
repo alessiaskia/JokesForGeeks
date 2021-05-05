@@ -31,10 +31,10 @@ SET time_zone
 -- Dumping data for table `gadget`
 --
 
-INSERT INTO `gadget` (`id`, `sample_picture`, `description`, `type`) VALUES
-(1, 'tshirt.jpg', '100 % fine jersey cotton, relaxed fit, unisex, Made in EU.', 'T-shirt'),
-(2, 'mousepad.jpg', 'Water repellent, high precision, non-slip rubber base, designed by gamers and very suitable for gaming/office work.', 'Mousepad'),
-(3, 'poster.jpg', 'Laminated, tear-resistant, very durable, high quality ink.', 'Poster');
+INSERT INTO `gadget` (`id`, `sample_picture`, `description`, `type`, `prix`) VALUES
+(1, 'tshirt.jpg', '100 % fine jersey cotton, relaxed fit, unisex, Made in EU.', 'T-shirt', 25),
+(2, 'mousepad.jpg', 'Water repellent, high precision, non-slip rubber base, designed by gamers and very suitable for gaming/office work.', 'Mousepad', 10),
+(3, 'poster.jpg', 'Laminated, tear-resistant, very durable, high quality ink.', 'Poster', 15);
 
 
 

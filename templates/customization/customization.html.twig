@@ -1,14 +1,16 @@
 {% extends 'base.html.twig' %} {% block main %} {# la ligne suivante est pour
-charger Bootstrap pour les formulaires #} {# {% form_theme form
-'bootstrap_4_layout.html.twig' %} #}
+charger Bootstrap pour les formulaires #} {% form_theme form
+'bootstrap_4_layout.html.twig' %}
+
 <div class="d-flex justify-content-around">
   <section class="left-block p-5 m-5 border border-light">
     <h1 class="display-4">Customization</h1>
     <div class="info mt-4 mb-4">
-      <p>Selected gadget: {{ gadget }}</p>
-      <p>Selected joke: {{ idJoke }}</p>
-      <p class="text-monospace">{{ chosenJoke.setup }}</p>
-      <p class="text-monospace">{{ chosenJoke.punchline }}</p>
+      <p>Selected gadget: {{ orderDetail.getGadget.type | upper }}</p>
+
+      <p>Selected joke: {{ orderDetail.getJoke.getId }}</p>
+      <p class="text-monospace">{{ orderDetail.getJoke.setup }}</p>
+      <p class="text-monospace">{{ orderDetail.getJoke.punchline }}</p>
       <p class="font-italic">
         The image below is just representative. Imagine the final product with
         your chosen joke on it ;)
@@ -56,19 +58,24 @@ charger Bootstrap pour les formulaires #} {# {% form_theme form
       </button>
 
       <p class="p-1 mt-5">
-        100 % fine jersey cotton, relaxed fit, unisex, Made in EU.
+        {{ orderDetail.getGadget.description }}
       </p>
     </div>
 
     <!-- color selection -->
-    <div class="color-selection border border-light p-3 m-3">
-      <p>Color: {selected color}</p>
-      <div class="color-squares d-flex justify-content-around p-3">
-        <label class="d-flex justify-content-center align-items-center">
-          <span
-            title="Black"
-            class="color-box black border border-warning active m-2"
-          ></span>
+    {{ form_start(form) }}
+    <div class="color-selection d-flex justify-content-around">
+      {{ form_row(form.color) }}
+    </div>
+    <div class="color-squares d-flex justify-content-between pl-5">
+      <span title="Black" class="color-box black border-dark"></span>
+      <span title="White" class="color-box bg-white border border-dark"></span>
+      <span title="Red" class="color-box bg-danger border border-dark"></span>
+      <span title="Blue" class="color-box blue border border-dark"></span>
+    </div>
+
+    <!-- <label class="d-flex justify-content-center align-items-center">
+         
           <input
             type="radio"
             class="color-input"
@@ -78,94 +85,37 @@ charger Bootstrap pour les formulaires #} {# {% form_theme form
           />
         </label>
         <label class="d-flex justify-content-center align-items-center">
-          <span
-            title="White"
-            class="color-box bg-white border border-dark m-2"
-          ></span>
+          
           <input type="radio" class="color-input" id="white" name="size" />
         </label>
         <label class="d-flex justify-content-center align-items-center">
-          <span
-            title="Red"
-            class="color-box bg-danger border border-dark m-2"
-          ></span>
+         
           <input type="radio" class="color-input" id="red" name="size" />
         </label>
         <label class="d-flex justify-content-center align-items-center">
-          <span
-            title="Blue"
-            class="color-box blue border border-dark m-2"
-          ></span>
+          
           <input type="radio" class="color-input" id="blue" name="size" />
-        </label>
-      </div>
-    </div>
+        </label> -->
 
     <!-- size selection -->
-    <div class="size-selection border border-light p-3 m-3">
-      <p>Size: {selected size}</p>
-      <div
-        class="size-squares d-flex justify-content-around border border-light p-3 text-center"
-      >
-        <label for="xs">XS</label>
-        <input
-          name="color-selection"
-          type="radio"
-          id="xs"
-          class="size-box border border-dark"
-          value="xs"
-        />
-        <label for="s">S</label>
-        <input
-          name="color-selection"
-          type="radio"
-          id="s"
-          class="size-box border border-dark"
-          value="s"
-        />
-        <label for="m">M</label>
-        <input
-          name="color-selection"
-          type="radio"
-          id="m"
-          class="size-box border border-dark"
-          value="m"
-          checked
-        />
-        <label for="l">L</label>
-        <input
-          name="color-selection"
-          type="radio"
-          id="l"
-          class="size-box border border-dark"
-          value="l"
-        />
-        <label for="xl">XL</label>
-        <input
-          name="color-selection"
-          type="radio"
-          id="xl"
-          class="size-box border border-dark"
-          value="xl"
-        />
-        <label for="2xl">2XL</label>
-        <input
-          name="color-selection"
-          type="radio"
-          id="2xl"
-          class="size-box border border-dark"
-          value="2xl"
-        />
-      </div>
+    <div
+      class="size-selection border border-light p-3 m-3 d-flex justify-content-around"
+    >
+      {{ form_row(form.size) }}
+    </div>
+
+    <!-- hidden input (joke and gadget) -->
+    <div class="d-none">
+      {{ form_row(form.joke) }} {{ form_row(form.gadget) }}
     </div>
 
     <!-- add-to-cart selection -->
     <div class="cart-buttons border border-light p-3 m-3">
       <h4 class="text-capitalize text-primary mb-5">
-        Price : { price of the item } €
+        Price : {{ orderDetail.getGadget.prix }} €
       </h4>
       <button
-        type="button"
+        type="submit"
         class="btn btn-primary btn-lg btn-block font-weight-bold"
       >
         Add to Cart
@@ -178,9 +128,12 @@ charger Bootstrap pour les formulaires #} {# {% form_theme form
       </button>
     </div>
 
+    <!-- <input type="submit" class="btn" value="Envoyer" /> -->
+    {{ form_end(form) }}
+
     <!-- size chart (only for t-shirts)-->
     <div class="add-to-cart border border-light p-3 m-3">
-      <table class="table table-hover text-justify">
+      <table class="size-chart table table-hover text-justify">
         <thead>
           <tr>
             <th scope="col">Size</th>

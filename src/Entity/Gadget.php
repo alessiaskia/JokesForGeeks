@@ -49,6 +49,11 @@ class Gadget
      */
     private $orderDetail;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $prix;
+
     public function __construct($arrayInit = [])
     {
         $this->orderDetail = new ArrayCollection();
@@ -123,6 +128,18 @@ class Gadget
                 $orderDetail->setGadget(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPrix(): ?float
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(?float $prix): self
+    {
+        $this->prix = $prix;
 
         return $this;
     }
