@@ -4,14 +4,15 @@ charger Bootstrap pour les formulaires #} {# {% form_theme form
 <div class="d-flex justify-content-around">
   <section class="left-block p-5 m-5 border border-light">
     <h1 class="display-4">Customization</h1>
-    <p>Selected gadget: {{ gadget }}</p>
-    <p>Selected joke: {{ idJoke }}</p>
-
+    <div class="info mt-4 mb-4">
+      <p>Selected gadget: {{ gadget }}</p>
+      <p>Selected joke: {{ idJoke }}</p>
+    </div>
     <button
       type="button"
       class="btn btn-warning btn-lg btn-block font-weight-bold mb-4"
     >
-      Back to Jokes
+      <a href="{{ path('home') }}">Back to Jokes</a>
     </button>
     <!-- picture with sample images  -->
     <div class="sample-picture-container border border-warning p-5">
@@ -31,19 +32,19 @@ charger Bootstrap pour les formulaires #} {# {% form_theme form
     <div class="gadget-switch border border-light p-3 m-3">
       <button
         id="T-shirt"
-        class="font-weight-bold btn btn-secondary ml-5 mt-2 p-2 text-center active"
+        class="font-weight-bold btn btn-outline-primary ml-5 mt-2 p-2 text-center active"
       >
         T-shirt
       </button>
       <button
         id="Mousepad"
-        class="font-weight-bold btn btn-secondary ml-5 mt-2 p-2 text-center"
+        class="font-weight-bold btn btn-outline-primary ml-5 mt-2 p-2 text-center"
       >
         Mousepad
       </button>
       <button
         id="Poster"
-        class="font-weight-bold btn btn-secondary ml-5 mt-2 p-2 text-center"
+        class="font-weight-bold btn btn-outline-primary ml-5 mt-2 p-2 text-center"
       >
         Poster
       </button>
@@ -56,33 +57,48 @@ charger Bootstrap pour les formulaires #} {# {% form_theme form
     <!-- color selection -->
     <div class="color-selection border border-light p-3 m-3">
       <p>Color: {selected color}</p>
-      <div
-        class="color-squares d-flex justify-content-around border border-light p-3"
-      >
-        <input
-          id="black"
-          class="color-box black border border-black active"
-          title="black"
-          name="size"
-        />
-        <input
-          id="white"
-          class="color-box bg-white border border-black"
-          title="white"
-          name="size"
-        />
-        <input
-          id="red"
-          class="color-box bg-danger border border-black"
-          title="red"
-          name="size"
-        />
-        <input
-          id="blue"
-          class="color-box blue border border-black"
-          title="blue"
-          name="size"
-        />
+      <div class="color-squares d-flex justify-content-around p-3">
+        <label class="d-flex justify-content-center align-items-center">
+          <span class="color-box black border border-warning active m-2"></span>
+          <input
+            type="radio"
+            class="color-input"
+            id="black"
+            title="black"
+            name="size"
+            checked
+          />
+        </label>
+        <label class="d-flex justify-content-center align-items-center">
+          <span class="color-box bg-white border border-dark m-2"></span>
+          <input
+            type="radio"
+            class="color-input"
+            id="white"
+            title="white"
+            name="size"
+          />
+        </label>
+        <label class="d-flex justify-content-center align-items-center">
+          <span class="color-box bg-danger border border-dark m-2"></span>
+          <input
+            type="radio"
+            class="color-input"
+            id="red"
+            title="red"
+            name="size"
+          />
+        </label>
+        <label class="d-flex justify-content-center align-items-center">
+          <span class="color-box blue border border-dark m-2"></span>
+          <input
+            type="radio"
+            class="color-input"
+            id="blue"
+            title="blue"
+            name="size"
+          />
+        </label>
       </div>
     </div>
 
@@ -92,24 +108,55 @@ charger Bootstrap pour les formulaires #} {# {% form_theme form
       <div
         class="size-squares d-flex justify-content-around border border-light p-3 text-center"
       >
-        <input id="xs" class="size-box border border-dark" type="radio" /><span
-          >XS</span
-        >
-        <input id="s" class="size-box border border-dark" type="radio" /><span
-          >S</span
-        >
-        <input id="m" class="size-box border border-dark" type="radio" /><span
-          >M</span
-        >
-        <input id="l" class="size-box border border-dark" type="radio" /><span
-          >L</span
-        >
-        <input id="xl" class="size-box border border-dark" type="radio" /><span
-          >XL</span
-        >
-        <input id="2xl" class="size-box border border-dark" type="radio" /><span
-          >2XL</span
-        >
+        <label for="xs">XS</label>
+        <input
+          name="color-selection"
+          type="radio"
+          id="xs"
+          class="size-box border border-dark"
+          value="xs"
+        />
+        <label for="s">S</label>
+        <input
+          name="color-selection"
+          type="radio"
+          id="s"
+          class="size-box border border-dark"
+          value="s"
+        />
+        <label for="m">M</label>
+        <input
+          name="color-selection"
+          type="radio"
+          id="m"
+          class="size-box border border-dark"
+          value="m"
+          checked
+        />
+        <label for="l">L</label>
+        <input
+          name="color-selection"
+          type="radio"
+          id="l"
+          class="size-box border border-dark"
+          value="l"
+        />
+        <label for="xl">XL</label>
+        <input
+          name="color-selection"
+          type="radio"
+          id="xl"
+          class="size-box border border-dark"
+          value="xl"
+        />
+        <label for="2xl">2XL</label>
+        <input
+          name="color-selection"
+          type="radio"
+          id="2xl"
+          class="size-box border border-dark"
+          value="2xl"
+        />
       </div>
     </div>
 
@@ -128,7 +175,7 @@ charger Bootstrap pour les formulaires #} {# {% form_theme form
         type="button"
         class="btn btn-warning btn-lg btn-block font-weight-bold"
       >
-        Go to Cart
+        <a href="{{ path('cart') }}">Go to Cart</a>
       </button>
     </div>
 

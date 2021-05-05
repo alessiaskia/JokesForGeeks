@@ -25,6 +25,14 @@ img {
   display: block;
 }
 
+button a {
+  color: unset !important;
+}
+
+a:hover {
+  text-transform: none !important;
+}
+
 .gadget-icons {
   width: 150px;
 }
@@ -68,6 +76,7 @@ footer ul {
 }
 
 .color-box {
+  display: block;
   width: 30px;
   height: 30px;
 }
