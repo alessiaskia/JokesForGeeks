@@ -13,6 +13,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Order
 {
+    public function hydrate(array $init)
+    {
+        foreach ($init as $key => $value) {
+            $method = "set" . ucfirst($key);
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -51,18 +61,19 @@ class Order
     private $country;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderDetail::class, mappedBy="orderMade")
-     */
-    private $orderDetail;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orderMade")
      */
     private $user;
 
-    public function __construct()
+    /**
+     * @ORM\OneToMany(targetEntity=OrderDetail::class, mappedBy="orderMade")
+     */
+    private $orderDetails;
+
+    public function __construct($arrayInit = [])
     {
-        $this->orderDetail = new ArrayCollection();
+        $this->orderDetails = new ArrayCollection();
+        $this->hydrate($arrayInit);
     }
 
     public function getId(): ?int
@@ -142,36 +153,6 @@ class Order
         return $this;
     }
 
-    /**
-     * @return Collection|OrderDetail[]
-     */
-    public function getOrderDetail(): Collection
-    {
-        return $this->orderDetail;
-    }
-
-    public function addOrderDetail(OrderDetail $orderDetail): self
-    {
-        if (!$this->orderDetail->contains($orderDetail)) {
-            $this->orderDetail[] = $orderDetail;
-            $orderDetail->setOrderMade($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrderDetail(OrderDetail $orderDetail): self
-    {
-        if ($this->orderDetail->removeElement($orderDetail)) {
-            // set the owning side to null (unless already changed)
-            if ($orderDetail->getOrderMade() === $this) {
-                $orderDetail->setOrderMade(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -180,6 +161,36 @@ class Order
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrderDetail[]
+     */
+    public function getOrderDetails(): Collection
+    {
+        return $this->orderDetails;
+    }
+
+    public function addOrderDetail(OrderDetail $orderDetail): self
+    {
+        if (!$this->orderDetails->contains($orderDetail)) {
+            $this->orderDetails[] = $orderDetail;
+            $orderDetail->setOrderMade($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderDetail(OrderDetail $orderDetail): self
+    {
+        if ($this->orderDetails->removeElement($orderDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($orderDetail->getOrderMade() === $this) {
+                $orderDetail->setOrderMade(null);
+            }
+        }
 
         return $this;
     }

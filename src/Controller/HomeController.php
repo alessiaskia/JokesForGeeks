@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Joke;
 use App\Entity\Gadget;
+use App\Entity\Order;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -28,6 +29,9 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'home')]
     public function homePage(): Response
     {
+        //obtain app.user dans la vue
+        $this->getUser();
+
         //aller chercher dans le repo - jokes
         $em = $this->getDoctrine()->getManager();
         $rep = $em->getRepository(Joke::class);

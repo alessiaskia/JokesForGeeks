@@ -10,6 +10,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class OrderDetail
 {
+    // public function hydrate(array $init)
+    // {
+    //     foreach ($init as $key => $value) {
+    //         $method = "set" . ucfirst($key);
+    //         if (method_exists($this, $method)) {
+    //             $this->$method($value);
+    //         }
+    //     }
+    // }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -34,11 +44,6 @@ class OrderDetail
     private $joke;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderDetail")
-     */
-    private $orderMade;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $size;
@@ -47,6 +52,11 @@ class OrderDetail
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $color;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderDetails")
+     */
+    private $orderMade;
 
     public function getId(): ?int
     {
@@ -90,17 +100,6 @@ class OrderDetail
         return $this;
     }
 
-    public function getOrderMade(): ?Order
-    {
-        return $this->orderMade;
-    }
-
-    public function setOrderMade(?Order $orderMade): self
-    {
-        $this->orderMade = $orderMade;
-        return $this;
-    }
-
     public function getSize(): ?string
     {
         return $this->size;
@@ -121,6 +120,18 @@ class OrderDetail
     public function setColor(?string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    public function getOrderMade(): ?Order
+    {
+        return $this->orderMade;
+    }
+
+    public function setOrderMade(?Order $orderMade): self
+    {
+        $this->orderMade = $orderMade;
 
         return $this;
     }
