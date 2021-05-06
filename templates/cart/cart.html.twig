@@ -1,5 +1,63 @@
-{% extends 'base.html.twig' %} {% block main %}
+{% extends 'base.html.twig' %} {% block main %} {# la ligne suivante est pour
+charger Bootstrap pour les formulaires {% form_theme form
+'bootstrap_4_layout.html.twig' %}#}
 
-<h1>Cart</h1>
+<div class="d-flex justify-content-around">
+  <section class="left-block p-5 m-5 border border-light">
+    <h1 class="display-4">Your Cart</h1>
 
+    <!-- here will appear the OrderDetails -->
+    <div class="all-articles border border-light p-3 m-3">
+      <div class="article-container border border-primary p-3 d-flex">
+        <img
+          src="{{ asset('/assets/img/tshirt-black-front.png') }}"
+          class="cart-sample-picture"
+        />
+        <div class="article-details p-5">
+          <p class="border border-bottom-3 border-light">
+            Gadget Type { orderDetail.getGadget.type | upper }
+          </p>
+          <p class="border border-bottom-3 border-light">
+            Color { orderDetail.getColor }
+          </p>
+          <p class="border border-bottom-3 border-light">
+            Size { orderDetail.getSize }
+          </p>
+          <p class="border border-bottom-3 border-light">
+            Price { orderDetail.getGadget.prix }
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="right-block p-5 m-5 border border-light">
+    <div>
+      <h4 class="text-capitalize text-primary mb-5">
+        Subtotal: { total of all articles } €
+      </h4>
+      <button
+        type="button"
+        class="btn btn-primary btn-lg btn-block font-weight-bold"
+        name="checkout"
+      >
+        Go to Checkout
+      </button>
+      <button
+        type="button"
+        class="btn btn-warning btn-lg btn-block font-weight-bold"
+        name="customization"
+      >
+        Back to Customization
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary btn-lg btn-block font-weight-bold"
+        name="jokes"
+      >
+        Back to Home
+      </button>
+    </div>
+  </section>
+</div>
 {% endblock %}

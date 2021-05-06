@@ -10,9 +10,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CustomizationController extends AbstractController
 {
+
+    //add SessionInterface in constructor for every controller
+    //so it can be available in every action that might need it
+    private $session;
+    public function __construct(SessionInterface $session)
+    {
+        $this->session = $session;
+    }
+
     #[Route('/customization/{chosenGadget}/{idJoke}', name: 'customization')]
     public function customizationPage(Request $req): Response
     {
@@ -38,10 +48,11 @@ class CustomizationController extends AbstractController
         //give it already the known properties
         $orderDetail->setJoke($chosenJoke);
         $orderDetail->setGadget($chosenGadget);
+        $orderDetail->setQuantity(1);
 
         //create form, give method + action
         $form = $this->createForm(OrderDetailType::class, $orderDetail, [
-            'action' => "{{ path('cart') }}",
+            'action' => "{{ path('customization') }}",
             'method' => 'POST'
         ]);
 
@@ -51,22 +62,10 @@ class CustomizationController extends AbstractController
 
         //verify
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $session = $this->get('session');
 
-            $session->set('size', $data->getSize());
-            $session->set('color', $data->getColor());
-            $session->set('joke', $data->getJoke());
-            $session->set('gadget', $data->getGadget());
-            // $em = $this->getDoctrine()->getManager();
-            // $em->persist($orderDetail);
-            // $em->flush();
-            return $this->redirectToRoute('cart', [
-                'size' => $data->getSize(),
-                'color' => $data->getColor(),
-                'joke' => $data->getJoke(),
-                'gadget' => $data->getGadget(),
-            ]);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($orderDetail);
+            $em->flush();
         }
 
         $vars = [
@@ -80,10 +79,4 @@ class CustomizationController extends AbstractController
 
         return $this->render('customization/customization.html.twig', $vars);
     }
-
-    // #[Route('/customization/add/to/cart', name: 'add_to_cart')]
-    // public function addToCart()
-    // {
-
-    // }
 }
