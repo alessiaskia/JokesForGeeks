@@ -54,7 +54,7 @@ class OrderDetail
     private $color;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderDetails")
+     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderDetails", cascade={"persist"})
      */
     private $orderMade;
 

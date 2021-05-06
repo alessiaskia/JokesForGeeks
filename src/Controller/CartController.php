@@ -20,6 +20,9 @@ class CartController extends AbstractController
     #[Route('/cart', name: 'cart')]
     public function cartPage(): Response
     {
+        //obtain order in session
+        $cart = $this->session->get('cart');
+        //dd($cart);
 
         return $this->render('cart/cart.html.twig');
     }

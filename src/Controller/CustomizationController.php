@@ -45,27 +45,36 @@ class CustomizationController extends AbstractController
         //create a new OrderDetail (size + color + idjoke + idgadget)
         $orderDetail = new OrderDetail();
 
-        //give it already the known properties
+        //give it already the known properties and set quantity = 1 as default value
         $orderDetail->setJoke($chosenJoke);
         $orderDetail->setGadget($chosenGadget);
         $orderDetail->setQuantity(1);
 
         //create form, give method + action
         $form = $this->createForm(OrderDetailType::class, $orderDetail, [
-            'action' => "{{ path('customization') }}",
             'method' => 'POST'
         ]);
 
-        //handleRequest
+        //handleRequest = fills the OrderDetail
         $form->handleRequest($req);
         //dd($orderDetail);
 
+        //obtain order from session
+        $order = $this->session->get('cart');
+        $order->setCountry('Peru');
+        //dd($order);
+        $order->addOrderDetail($orderDetail);
+        //dd($order);
+
         //verify
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($orderDetail);
+            $em->persist($order);
             $em->flush();
+            //dd($order);
+            $this->session->set('cart', $order);
+            return $this->redirectToRoute('cart');
         }
 
         $vars = [

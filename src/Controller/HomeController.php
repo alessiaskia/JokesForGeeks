@@ -32,6 +32,12 @@ class HomeController extends AbstractController
         //obtain app.user dans la vue
         $this->getUser();
 
+        //create cart in session
+        $this->session->set('cart', new Order());
+
+        //obtain cart containing an Order object
+        $cart = $this->session->get('cart');
+
         //aller chercher dans le repo - jokes
         $em = $this->getDoctrine()->getManager();
         $rep = $em->getRepository(Joke::class);

@@ -66,7 +66,7 @@ class Order
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderDetail::class, mappedBy="orderMade")
+     * @ORM\OneToMany(targetEntity=OrderDetail::class, mappedBy="orderMade", cascade={"persist"})
      */
     private $orderDetails;
 
