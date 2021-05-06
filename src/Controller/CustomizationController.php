@@ -27,27 +27,46 @@ class CustomizationController extends AbstractController
         $chosenJoke = $rep->findOneBy(['id' => $idJoke]);
         //dd($chosenJoke);
 
-        //obtain remaining propreties of the selected gadget
+        //obtain remaining properties of the selected gadget
         $em = $this->getDoctrine()->getManager();
         $rep = $em->getRepository(Gadget::class);
         $chosenGadget = $rep->findOneBy(['type' => $chosenGadget]);
 
-        //create a new Option Gadget (size + color)
+        //create a new OrderDetail (size + color + idjoke + idgadget)
         $orderDetail = new OrderDetail();
 
+        //give it already the known properties
         $orderDetail->setJoke($chosenJoke);
         $orderDetail->setGadget($chosenGadget);
 
-        $form = $this->createForm(OrderDetailType::class, $orderDetail);
+        //create form, give method + action
+        $form = $this->createForm(OrderDetailType::class, $orderDetail, [
+            'action' => "{{ path('cart') }}",
+            'method' => 'POST'
+        ]);
+
         //handleRequest
         $form->handleRequest($req);
         //dd($orderDetail);
 
         //verify
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($orderDetail);
-            $em->flush();
+            $data = $form->getData();
+            $session = $this->get('session');
+
+            $session->set('size', $data->getSize());
+            $session->set('color', $data->getColor());
+            $session->set('joke', $data->getJoke());
+            $session->set('gadget', $data->getGadget());
+            // $em = $this->getDoctrine()->getManager();
+            // $em->persist($orderDetail);
+            // $em->flush();
+            return $this->redirectToRoute('cart', [
+                'size' => $data->getSize(),
+                'color' => $data->getColor(),
+                'joke' => $data->getJoke(),
+                'gadget' => $data->getGadget(),
+            ]);
         }
 
         $vars = [
@@ -55,10 +74,16 @@ class CustomizationController extends AbstractController
             // 'idJoke' => $idJoke,
             // 'chosenJoke' => $chosenJoke,
             'form' => $form->createView(),
-            'orderDetail' => $orderDetail, //everything is passed by orderDetail, no need to pass every variable separately
+            'orderDetail' => $orderDetail, //everything is contained in orderDetail, no need to pass every variable separately
         ];
 
 
         return $this->render('customization/customization.html.twig', $vars);
     }
+
+    // #[Route('/customization/add/to/cart', name: 'add_to_cart')]
+    // public function addToCart()
+    // {
+
+    // }
 }
